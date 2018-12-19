@@ -1,4 +1,5 @@
 ﻿using AsyncApi.Contexts;
+using AsyncApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -20,9 +21,9 @@ namespace AsyncApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            services.AddDbContext<BooksContext>(o => o.UseSqlite("Data Source=books.db"));
+            services.AddDbContext<BooksContext>(o => o.UseSqlite("Data Source=books.db"))
+                .AddScoped<IBooksRepository, BooksRepository>()
+                .AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
