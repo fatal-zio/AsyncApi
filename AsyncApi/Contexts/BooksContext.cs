@@ -13,6 +13,11 @@ namespace AsyncApi.Contexts
 
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite("Data Source=books.db");
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // seed the database with dummy data
