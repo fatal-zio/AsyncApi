@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using AsyncApi.Contexts;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +13,8 @@ namespace AsyncApi
     {
         public static void Main(string[] args)
         {
+            ThreadPool.SetMaxThreads(Environment.ProcessorCount, Environment.ProcessorCount);
+
             var host = CreateWebHostBuilder(args).Build();
 
             using (var scope = host.Services.CreateScope())

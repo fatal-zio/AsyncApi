@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AsyncApi.Contexts;
 using AsyncApi.Entities;
@@ -22,6 +23,16 @@ namespace AsyncApi.Services
         public async Task<IEnumerable<Book>> GetBooksAsync()
         {
             return await _context.Books.Include(o => o.Author).ToListAsync();
+        }
+
+        public IEnumerable<Book> GetBooks()
+        {
+            return _context.Books.Include(o => o.Author).ToList();
+        }
+
+        public Book GetBook(Guid id)
+        {
+            return _context.Books.Include(o => o.Author).FirstOrDefault(o => o.Id == id);
         }
 
         public void Dispose()
